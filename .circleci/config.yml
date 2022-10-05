@@ -34,8 +34,8 @@ jobs:
             dockerize -wait tcp://localhost:5432 -timeout 1m
       - run:
           name: php test
-          command: php artisan test
-          # command: vendor/bin/phpunit tests/Feature
+          # command: php artisan test
+          command: vendor/bin/phpunit tests/Feature
   deploy:
     docker:
       - image: cimg/php:7.4.30-node
