@@ -36,6 +36,9 @@ jobs:
           name: php test
           # command: php artisan test
           command: vendor/bin/phpunit tests/Feature
+      - run:
+          name: deploy via ec2
+          command: ssh -o StrictHostKeyChecking=no -t ec2-user@${HOST_NAME}
   deploy:
     docker:
       - image: cimg/php:7.4.30-node
