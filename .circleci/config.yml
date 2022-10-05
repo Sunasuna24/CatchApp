@@ -1,12 +1,42 @@
-version: 2.1
+version: 3
 jobs:
   build:
     docker:
       - image: cimg/php:7.4.30-node
+      - image: cimg/postgres:11.17
+        environment:
+          POSTGRES_DB: catchApp
+          POSTGRES_USER: default
+          POSTGRES_PASSWORD: secret
+    environment:
+      APP_ENV: testing
+      DB_CONNECTION: pgsql
+      DB_HOST: localhost
+      DB_PORT: 5432
+      DB_DATABASE: catchApp
+      DB_USERNAME: default
+      DB_PASSWORD: secret
     steps:
+      - checkout
+      - run: sudo composer self-update --1
+      - restore_cache:
+          key: composer-v1-{{ checksum "composer.lock" }}
+      - run: composer install -n --prefer-dist
+      - save_cache:
+          key: composer-v1-{{ checksum "composer.lock" }}
+          paths:
+            - vendor
+      - run:
+          name: get ready for postgres
+          command: |
+            sudo apt-get update
+            sudo apt-get install libpq-dev
+            sudo docker-php-ext-install pdo_pgsql
+            dockerize -wait tcp://localhost:5432 -timeout 1m
       - run:
           name: php test
-          command: php artisan test
+          # command: php artisan test
+          command: vendor/bin/phpunit tests/Feature
   deploy:
     docker:
       - image: cimg/php:7.4.30-node
@@ -15,7 +45,7 @@ jobs:
       - run:
           name: deploy
           command: |
-            ssh -o StrictHostKeyChecking=no -t webapp@${HOST_NAME} "cd catchApp && \
+            ssh -o StrictHostKeyChecking=no -t suna@${HOST_NAME} "cd catchApp && \
               git pull origin master && \
               composer install -n --no-dev --prefer-dist && \
               php artisan migrate --force && \
