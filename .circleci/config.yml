@@ -38,7 +38,8 @@ jobs:
           command: vendor/bin/phpunit tests/Feature
       - run:
           name: login to EC2
-          command: ssh -o StrictHostKeyChecking=no -t suna-aws@${HOST_NAME}
+          command: ssh -o StrictHostKeyChecking=no -t suna-aws@${HOST_NAME} \
+            exit
   deploy:
     docker:
       - image: cimg/php:7.4.30-node
