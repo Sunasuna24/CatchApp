@@ -36,12 +36,6 @@ jobs:
           name: php test
           # command: php artisan test
           command: vendor/bin/phpunit tests/Feature
-      - run:
-          name: deploy via ec2
-          command: ssh -o StrictHostKeyChecking=no -t suna-aws@${HOST_NAME}
-      - run:
-          name: deploy via ec23
-          command: ssh -o StrictHostKeyChecking=no -t suna-aws@${HOST_NAME}
   deploy:
     docker:
       - image: cimg/php:7.4.30-node
