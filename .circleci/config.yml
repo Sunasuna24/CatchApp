@@ -6,7 +6,7 @@ jobs:
     steps:
       - run:
           name: php test
-          command: vendor/bin/phpunit
+          command: php artisan test
   deploy:
     docker:
       - image: cimg/php:7.4.30-node
