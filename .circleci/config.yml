@@ -36,10 +36,6 @@ jobs:
           name: php test
           # command: php artisan test
           command: vendor/bin/phpunit tests/Feature
-      - run:
-          name: login to EC2
-          command: ssh -o StrictHostKeyChecking=no -t suna-aws@${HOST_NAME} "cd catchApp" \
-            exit
   deploy:
     docker:
       - image: cimg/php:7.4.30-node
