@@ -38,7 +38,7 @@ jobs:
           command: vendor/bin/phpunit tests/Feature
       - run:
           name: login to EC2
-          command: ssh -o StrictHostKeyChecking=no -t suna-aws@${HOST_NAME} \
+          command: ssh -o StrictHostKeyChecking=no -t suna-aws@${HOST_NAME} "cd catchApp" \
             exit
   deploy:
     docker:
