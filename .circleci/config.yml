@@ -44,7 +44,7 @@ jobs:
       - run:
           name: deploy
           command: |
-            ssh -o StrictHostKeyChecking=no -t suna@${HOST_NAME} "cd catchApp && \
+            ssh -o StrictHostKeyChecking=no -t suna-aws@${HOST_NAME} "cd catchApp && \
               git pull origin master && \
               composer install -n --no-dev --prefer-dist && \
               php artisan migrate --force && \
