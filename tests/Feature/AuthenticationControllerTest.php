@@ -28,7 +28,8 @@ class AuthenticationControllerTest extends TestCase
         $valid_data = [
             'name' => 'test1',
             'email' => 'test1@email.com',
-            'password' => 'password'
+            'password' => 'password',
+            'password_confirmation' => 'password'
         ];
 
         $this->assertDatabaseMissing('users', $valid_data);
@@ -38,6 +39,7 @@ class AuthenticationControllerTest extends TestCase
         $user = User::first();
         $raw_password = $valid_data['password'];
         unset($valid_data['password']);
+        unset($valid_data['password_confirmation']);
         $this->assertDatabaseHas('users', $valid_data);
         $this->assertTrue(Hash::check($raw_password, $user->password));
         $this->assertAuthenticatedAs($user);
@@ -63,6 +65,7 @@ class AuthenticationControllerTest extends TestCase
         // password周り
         $this->post(route('register'), ['password' => ''])->assertInvalid(['password' => '必ず指定']);
         $this->post(route('register'), ['password' => '1234567'])->assertInvalid(['password' => '以上で指定']);
-        $this->post(route('register'), ['password' => '12345678'])->assertValid('password');
+        $this->post(route('register'), ['password' => '12345678', 'password_confirmation' => '12345678'])->assertValid('password');
+        $this->post(route('register'), ['password' => 'password', 'password_confirmation' => 'hogehoge'])->assertInvalid(['password' => '一致していません']);
     }
 }
