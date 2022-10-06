@@ -23,3 +23,4 @@ Route::get('/home', function () {
 })->name('home');
 
 Route::get('/register', [RegisterController::class, 'index'])->middleware('guest')->name('register');
+Route::post('/register', [RegisterController::class, 'register'])->middleware('guest');
