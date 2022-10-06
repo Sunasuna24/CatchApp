@@ -23,7 +23,7 @@ class AuthenticationControllerTest extends TestCase
     }
 
     /** @test */
-    function register_to_application()
+    function register_valid_user_data()
     {
         $valid_data = [
             'name' => 'test1',
