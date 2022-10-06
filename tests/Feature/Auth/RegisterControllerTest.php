@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Auth;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -8,7 +8,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
-class AuthenticationControllerTest extends TestCase
+class RegisterControllerTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -23,7 +23,7 @@ class AuthenticationControllerTest extends TestCase
     }
 
     /** @test */
-    function register_valid_user_data()
+    function register_valid_user()
     {
         $valid_data = [
             'name' => 'test1',
