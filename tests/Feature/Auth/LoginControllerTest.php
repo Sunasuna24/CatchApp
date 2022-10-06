@@ -39,4 +39,15 @@ class LoginControllerTest extends TestCase
         $this->post(route('login'), $valid_data)->assertRedirect(route('home'));
         $this->assertAuthenticated();
     }
+
+    /** @test */
+    function validate_user_data()
+    {
+        User::factory()->create(['email' => 'sample@email.com', 'password' => Hash::make('password')]);
+
+        $this->from(route('login'))->post(route('login'), [])->assertRedirect(route('login'));
+
+        $this->post(route('login'), ['email' => ''])->assertInvalid(['email' => '必ず指定']);
+        $this->post(route('login'), ['password' => ''])->assertInvalid(['password' => '必ず指定']);
+    }
 }
