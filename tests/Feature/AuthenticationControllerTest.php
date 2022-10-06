@@ -49,20 +49,20 @@ class AuthenticationControllerTest extends TestCase
         $this->from(route('register'))->post(route('register'), [])->assertRedirect(route('register'));
 
         // name周り
-        $this->post(route('register'), ['name' => ''])->assertInvalid(['name' => 'エラー']);
-        $this->post(route('register'), ['name' => str_repeat('a', 3)])->assertInvalid(['name' => 'エラー']);
+        $this->post(route('register'), ['name' => ''])->assertInvalid(['name' => '必ず指定']);
+        $this->post(route('register'), ['name' => str_repeat('a', 3)])->assertInvalid(['name' => '以上で指定']);
         $this->post(route('register'), ['name' => str_repeat('a', 4)])->assertValid('name');
         
         // email周り
-        User::create(['emai' => 'sample@email.com']);
-        $this->post(route('register'), ['email' => ''])->assertInvalid(['email' => 'エラー']);
-        $this->post(route('register'), ['email' => 'aaa@bbb@ccc'])->assertInvalid(['email' => 'エラー']);
-        $this->post(route('register'), ['email' => 'あああ@いいい.ううう'])->assertInvalid(['email' => 'エラー']);
-        $this->post(route('register'), ['email' => 'sample@email.com'])->assertInvalid(['email' => 'エラー']);
+        User::factory()->create(['email' => 'sample@email.com']);
+        $this->post(route('register'), ['email' => ''])->assertInvalid(['email' => '必ず指定']);
+        $this->post(route('register'), ['email' => 'aaa@bbb@ccc'])->assertInvalid(['email' => '有効なメールアドレス']);
+        $this->post(route('register'), ['email' => 'あああ@いいい.ううう'])->assertInvalid(['email' => '有効なメールアドレス']);
+        $this->post(route('register'), ['email' => 'sample@email.com'])->assertInvalid(['email' => '既に存在']);
         
         // password周り
-        $this->post(route('register'), ['password' => ''])->assertInvalid(['password' => 'エラー']);
-        $this->post(route('register'), ['password' => '1234567'])->assertInvalid(['password' => 'エラー']);
+        $this->post(route('register'), ['password' => ''])->assertInvalid(['password' => '必ず指定']);
+        $this->post(route('register'), ['password' => '1234567'])->assertInvalid(['password' => '以上で指定']);
         $this->post(route('register'), ['password' => '12345678'])->assertValid('password');
     }
 }
