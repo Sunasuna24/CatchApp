@@ -15,7 +15,10 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request->only(['email', 'password']);
+        $credentials = $request->validate([
+            'email' => ['required'],
+            'password' => ['required']
+        ]);
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
@@ -23,6 +26,6 @@ class LoginController extends Controller
             return redirect()->route('home');
         }
 
-        // return redirect()->route('login');
+        return redirect()->route('login');
     }
 }
