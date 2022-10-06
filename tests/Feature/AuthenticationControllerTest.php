@@ -17,7 +17,7 @@ class AuthenticationControllerTest extends TestCase
         User::factory()->create();
         $user = User::first();
 
-        $this->get(route('register'))->assertOk()->assertViewIs('register');
+        $this->get(route('register'))->assertOk()->assertViewIs('auth.register');
         $this->actingAs($user)->get(route('register'))->assertRedirect(route('home'));
     }
 }
