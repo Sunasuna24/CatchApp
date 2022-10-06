@@ -5,6 +5,7 @@ namespace Tests\Feature\Auth;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
 class LoginControllerTest extends TestCase
@@ -28,11 +29,14 @@ class LoginControllerTest extends TestCase
             'email' => 'test1@email.com',
             'password' => 'password'
         ];
-        User::factory()->create($valid_data);
-        $user = User::first();
+        User::factory()->create([
+            'email' => $valid_data['email'],
+            'password' => Hash::make($valid_data['password'])
+        ]);
 
         $this->get(route('home'))->assertRedirect(route('login'));
-        $this->post(route('login'), [])->assertRedirect(route('login'));
-        $this->actingAs($user)->post(route('login'), $valid_data)->assertRedirect(route('home'));
+        $this->assertGuest();
+        $this->post(route('login'), $valid_data)->assertRedirect(route('home'));
+        $this->assertAuthenticated();
     }
 }
