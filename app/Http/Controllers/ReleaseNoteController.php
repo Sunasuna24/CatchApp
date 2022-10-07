@@ -94,6 +94,8 @@ class ReleaseNoteController extends Controller
      */
     public function destroy($id)
     {
-        //
+        ReleaseNote::find($id)->delete();
+
+        return redirect()->route('release-note.index');
     }
 }
