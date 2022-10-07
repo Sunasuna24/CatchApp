@@ -10,19 +10,15 @@ class ReleaseNoteController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $release_notes = ReleaseNote::all();
+        $release_notes = ReleaseNote::orderBy('created_at', 'DESC')->get();
         return view('release-note.index')->with('release_notes', $release_notes);
     }
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function create()
     {
@@ -35,9 +31,6 @@ class ReleaseNoteController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
