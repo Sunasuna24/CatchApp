@@ -70,4 +70,14 @@ class LoginControllerTest extends TestCase
 
         $this->actingAs($user)->get(route('home'))->assertOk();
     }
+
+    /** @test */
+    function logout_from_application()
+    {
+        User::factory()->create();
+        $user = User::first();
+
+        $this->actingAs($user)->get(route('logout'))->assertRedirect(route('top'));
+        $this->assertGuest();
+    }
 }
