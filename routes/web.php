@@ -41,8 +41,7 @@ Route::get('/email/verify', function () {
 // 確認メールのリンクをクリックしたときのリクエストを処理
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
-
-    return redirect('/home');
+    return redirect()->route('home');
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
 // 確認メールの再送信
