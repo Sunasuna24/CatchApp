@@ -50,4 +50,23 @@ class LoginControllerTest extends TestCase
         $this->post(route('login'), ['email' => ''])->assertInvalid(['email' => '必ず指定']);
         $this->post(route('login'), ['password' => ''])->assertInvalid(['password' => '必ず指定']);
     }
+
+    /** @test */
+    function redirect_to_notice_if_email_not_verified()
+    {
+        User::factory()->create([
+            'name' => 'test',
+            'email' => 'test@email.com',
+            'password' => Hash::make('password'),
+            'email_verified_at' => null
+        ]);
+        $user = User::first();
+
+        $this->actingAs($user)->get(route('home'))->assertRedirect(route('verification.notice'));
+
+        $user->email_verified_at = now();
+        $user->save();
+
+        $this->actingAs($user)->get(route('home'))->assertOk();
+    }
 }
