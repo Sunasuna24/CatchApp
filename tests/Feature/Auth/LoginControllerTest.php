@@ -62,7 +62,7 @@ class LoginControllerTest extends TestCase
         ]);
         $user = User::first();
 
-        $this->actingAs($user)->get(route('home'))->assertRedirect(route('verification.notice'));
+        $this->actingAs($user)->get(route('home'))->assertRedirect(route('verification.notice'))->assertViewIs('auth.verify-email');
 
         $user->email_verified_at = now();
         $user->save();
