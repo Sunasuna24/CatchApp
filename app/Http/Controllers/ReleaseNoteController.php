@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ReleaseNote;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ReleaseNoteController extends Controller
 {
@@ -25,7 +26,11 @@ class ReleaseNoteController extends Controller
      */
     public function create()
     {
-        //
+        if (Auth::user()->email !== "sunasunayaka1218@gmail.com") {
+            abort(404);
+        }
+
+        return view('release-note.create');
     }
 
     /**

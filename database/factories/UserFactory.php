@@ -40,4 +40,14 @@ class UserFactory extends Factory
             ];
         });
     }
+
+    public function suna()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'name' => 'suna',
+                'email' => 'sunasunayaka1218@gmail.com'
+            ];
+        });
+    }
 }
