@@ -8,8 +8,16 @@
 </head>
 <body>
     <p>これはHOMEページです</p>
-    @foreach ($release_notes as $note)
-    {{ $note->title }}
-    @endforeach
+
+    @if (0 < $release_notes->count())
+    <div id="releaseNote-wrapper">
+        <h2>リリースノート</h2>
+        <ul>
+            @foreach ($release_notes as $note)
+            <li>{{ $note->title }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
 </body>
 </html>
