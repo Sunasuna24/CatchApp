@@ -61,13 +61,14 @@ class ReleaseNoteController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(ReleaseNote $release_note)
     {
-        //
+        if (Auth::user()->email !== "sunasunayaka1218@gmail.com") {
+            abort(404);
+        }
+
+        return view('release-note.edit')->with('release_note', $release_note);
     }
 
     /**
@@ -87,6 +88,10 @@ class ReleaseNoteController extends Controller
      */
     public function destroy(ReleaseNote $release_note)
     {
+        if (Auth::user()->email !== "sunasunayaka1218@gmail.com") {
+            abort(404);
+        }
+
         $release_note->delete();
 
         return redirect()->route('release-note.index');
