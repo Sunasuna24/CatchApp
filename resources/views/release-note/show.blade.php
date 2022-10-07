@@ -7,6 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-    {{ $release_note }}
+    <h1>{{ $release_note->title }}</h1>
+    <p>{{ $release_note->detail }}</p>
 </body>
 </html>
