@@ -14,7 +14,7 @@ class ReleaseNoteFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->title,
+            'title' => $this->faker->sentence(rand(1,4)),
             'detail' => $this->faker->realText
         ];
     }
