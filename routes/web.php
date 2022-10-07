@@ -22,7 +22,7 @@ Route::get('/', function () {
     return view('top');
 })->middleware('guest');
 
-Route::get('/home', [HomeController::class, 'index'])->middleware('verified')->name('home');
+Route::get('/home', [HomeController::class, 'index'])->middleware(['auth', 'verified'])->name('home');
 
 
 /**
