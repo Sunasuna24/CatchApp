@@ -8,5 +8,8 @@
 </head>
 <body>
     <p>これはHOMEページです</p>
+    @foreach ($release_notes as $note)
+    {{ $note->title }}
+    @endforeach
 </body>
 </html>
