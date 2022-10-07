@@ -58,4 +58,4 @@ Route::get('/release-note', [ReleaseNoteController::class, 'create'])->middlewar
 Route::post('/release-note', [ReleaseNoteController::class, 'store'])->middleware('verified');
 Route::get('/release-notes', [ReleaseNoteController::class, 'index'])->middleware('verified')->name('release-note.index');
 Route::get('/release-notes/{id}', [ReleaseNoteController::class, 'show'])->middleware('verified')->name('release-note.show');
-Route::delete('/release-notes/{id}', [ReleaseNoteController::class, 'destroy'])->middleware('verified')->name('release-note.destroy');
+Route::delete('/release-notes/{id}', [ReleaseNoteController::class, 'destroy'])->middleware('verified')->name('release-notes.destroy');

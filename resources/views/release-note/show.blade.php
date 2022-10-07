@@ -7,7 +7,16 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>{{ $release_note->title }}</h1>
-    <p>{{ $release_note->detail }}</p>
+    <div>
+        <h1>{{ $release_note->title }}</h1>
+        <p>{{ $release_note->detail }}</p>
+    </div>
+    <div>
+        <form action="{{ route('release-notes.destroy', $release_note->id) }}" method="post">
+            @csrf
+            @method('DELETE')
+            <button type="submit">削除する</button>
+        </form>
+    </div>
 </body>
 </html>
