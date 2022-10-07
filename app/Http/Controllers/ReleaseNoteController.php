@@ -41,7 +41,21 @@ class ReleaseNoteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if (Auth::user()->email !== "sunasunayaka1218@gmail.com") {
+            abort(404);
+        }
+
+        $release_note_data = $request->validate([
+            'title' => ['required', 'min:3'],
+            'detail' => ['required']
+        ]);
+
+        ReleaseNote::create([
+            'title' => $release_note_data['title'],
+            'detail' => $release_note_data['detail']
+        ]);
+
+        return redirect()->route('release-note.index');
     }
 
     /**
