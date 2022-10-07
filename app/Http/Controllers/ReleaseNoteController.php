@@ -73,14 +73,23 @@ class ReleaseNoteController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, ReleaseNote $release_note)
     {
-        //
+        if (Auth::user()->email !== "sunasunayaka1218@gmail.com") {
+            abort(404);
+        }
+
+        $release_note_data = $request->validate([
+            'title' => ['required', 'min:3'],
+            'detail' => ['required']
+        ]);
+
+        $release_note->title = $release_note_data['title'];
+        $release_note->detail = $release_note_data['detail'];
+        $release_note->save();
+
+        return redirect()->route('release-note.show', $release_note->id);
     }
 
     /**
