@@ -17,7 +17,7 @@
             <li>{{ $note->title }}</li>
             @endforeach
         </ul>
-        <a href="">リリースノートを全て見る</a>
+        <a href="{{ route('release-note.index') }}">リリースノートを全て見る</a>
     </div>
     @endif
 </body>
