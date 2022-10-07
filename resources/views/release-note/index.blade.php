@@ -13,7 +13,7 @@
         @foreach ($release_notes as $note)
         <tr>
             <td>{{ $note->created_at->format('Y/m/d') }}</td>
-            <td>{{ $note->title }}</td>
+            <td><a href="{{ route('release-note.show', $note->id) }}">{{ $note->title }}</a></td>
         </tr>
         @endforeach
     </table>
