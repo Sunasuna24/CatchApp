@@ -47,7 +47,8 @@ class ReleaseNoteController extends Controller
      */
     public function show($id)
     {
-        //
+        $release_note = ReleaseNote::find($id);
+        return view('release-note.show')->with('release_note', $release_note);
     }
 
     /**

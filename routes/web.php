@@ -55,3 +55,4 @@ Route::post('/email/verification-notification', function (Request $request) {
 
 // リリースノート周り
 Route::get('/release-notes', [ReleaseNoteController::class, 'index'])->middleware('verified')->name('release-note.index');
+Route::get('/release-notes/{id}', [ReleaseNoteController::class, 'show'])->middleware('verified')->name('release-note.show');
