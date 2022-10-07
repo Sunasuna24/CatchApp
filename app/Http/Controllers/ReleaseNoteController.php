@@ -53,13 +53,9 @@ class ReleaseNoteController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(ReleaseNote $release_note)
     {
-        $release_note = ReleaseNote::find($id);
         return view('release-note.show')->with('release_note', $release_note);
     }
 
@@ -88,13 +84,10 @@ class ReleaseNoteController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(ReleaseNote $release_note)
     {
-        ReleaseNote::find($id)->delete();
+        $release_note->delete();
 
         return redirect()->route('release-note.index');
     }
