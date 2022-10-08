@@ -21,6 +21,7 @@ class FeedbackController extends Controller
         $user = Auth::user();
 
         Mail::to($user->email)->send(new FeedbackAcceptMail($feedback));
+        Mail::to('sunasunayaka1218@gmail.com')->send(new FeedbackMail($feedback));
 
         return redirect()->route('home');
     }

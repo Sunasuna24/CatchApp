@@ -16,9 +16,9 @@ class FeedbackMail extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(string $feedback)
     {
-        //
+        $this->feedback = $feedback;
     }
 
     /**
@@ -28,7 +28,9 @@ class FeedbackMail extends Mailable
      */
     public function build()
     {
-        return $this->view('view.name');
+        return $this->from('sunasunayaka1218@gmail.com')
+            ->subject('新しいフィードバックのお知らせ')
+            ->view('emails.feedback')
+            ->with(['feedback' => $this->feedback]);
     }
 }
-

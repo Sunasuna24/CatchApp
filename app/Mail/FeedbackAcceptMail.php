@@ -30,7 +30,7 @@ class FeedbackAcceptMail extends Mailable
     {
         return $this->from(config('mail.from.address'))
             ->subject('フィードバック受付のお知らせ')
-            ->view('emails.feedback')
+            ->view('emails.feedback_accept')
             ->with(['feedback' => $this->feedback]);
     }
 }
