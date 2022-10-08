@@ -1,24 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <p>これはHOMEページです</p>
+@extends('layouts.app')
 
-    @if (0 < $release_notes->count())
-    <div id="releaseNote-wrapper">
-        <h2>リリースノート</h2>
-        <ul>
-            @foreach ($release_notes as $note)
-            <li>{{ $note->title }}</li>
-            @endforeach
-        </ul>
-        <a href="{{ route('release-note.index') }}">リリースノートを全て見る</a>
-    </div>
-    @endif
-</body>
-</html>
+@section('title', 'CatchApp')
+
+@section('content')
+<p>これはHOMEページです</p>
+
+@if (0 < $release_notes->count())
+<div id="releaseNote-wrapper">
+    <h2>リリースノート</h2>
+    <ul>
+        @foreach ($release_notes as $note)
+        <li>{{ $note->title }}</li>
+        @endforeach
+    </ul>
+    <a href="{{ route('release-note.index') }}">リリースノートを全て見る</a>
+</div>
+@endif
+@endsection
