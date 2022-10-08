@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\FeedbackAcceptMail;
 use App\Mail\FeedbackMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,7 +20,7 @@ class FeedbackController extends Controller
         $feedback = $request->body;
         $user = Auth::user();
 
-        Mail::to($user->email)->send(new FeedbackMail($feedback));
+        Mail::to($user->email)->send(new FeedbackAcceptMail($feedback));
 
         return redirect()->route('home');
     }
