@@ -4,6 +4,7 @@
 
 @section('content')
     <h1>リリースノート</h1>
+    <a href="{{ route('release-note.create') }}">新しいリリースノートを作成する</a>
     @if (0 < $release_notes->count())
     <table>
         @foreach ($release_notes as $note)
