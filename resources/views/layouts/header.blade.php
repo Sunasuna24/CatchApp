@@ -1,8 +1,13 @@
 <header>
     <h1><a href="{{ route('home') }}">CatchApp</a></h1>
     <ul>
+        @auth
+        <li><a href="{{ route('feedback') }}">フィードバックを送る</a></li>
+        <li><a href="{{ route('logout') }}">ログアウトする</a></li>
+        @endauth
+        @guest
         <li><a href="{{ route('login') }}">ログインする</a></li>
         <li><a href="{{ route('register') }}">会員登録する</a></li>
-        <li><a href="{{ route('feedback') }}">フィードバックを送る</a></li>
+        @endguest
     </ul>
 </header>
