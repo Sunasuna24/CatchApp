@@ -11,13 +11,17 @@
         <h1>{{ $release_note->title }}</h1>
         <p>{{ $release_note->detail }}</p>
     </div>
-    <a href="{{ route('release-note.edit', $release_note->id) }}">編集する</a>
+    @if (\Auth::user()->email === "sunasunayaka1218@gmail.com")
     <div>
-        <form action="{{ route('release-note.destroy', $release_note->id) }}" method="post">
-            @csrf
-            @method('DELETE')
-            <button type="submit">削除する</button>
-        </form>
+        <a href="{{ route('release-note.edit', $release_note->id) }}">編集する</a>
+        <div>
+            <form action="{{ route('release-note.destroy', $release_note->id) }}" method="post">
+                @csrf
+                @method('DELETE')
+                <button type="submit">削除する</button>
+            </form>
+        </div>
     </div>
+    @endif
 </body>
 </html>
