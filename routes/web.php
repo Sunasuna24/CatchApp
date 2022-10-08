@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ReleaseNoteController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -53,7 +54,9 @@ Route::post('/email/verification-notification', function (Request $request) {
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
-// リリースノート周り
+/**
+ * リリースノート周り
+ */
 Route::get('/release-note', [ReleaseNoteController::class, 'create'])->middleware('verified')->name('release-note.create');
 Route::post('/release-note', [ReleaseNoteController::class, 'store'])->middleware('verified');
 Route::get('/release-notes', [ReleaseNoteController::class, 'index'])->middleware('verified')->name('release-note.index');
@@ -61,3 +64,8 @@ Route::get('/release-notes/{release_note}', [ReleaseNoteController::class, 'show
 Route::get('/release-notes/edit/{release_note}', [ReleaseNoteController::class, 'edit'])->middleware('verified')->name('release-note.edit');
 Route::put('/release-notes/edit/{release_note}', [ReleaseNoteController::class, 'update'])->middleware('verified')->name('release-note.update');
 Route::delete('/release-notes/{release_note}', [ReleaseNoteController::class, 'destroy'])->middleware('verified')->name('release-note.destroy');
+
+/**
+ * フィードバック周り
+ */
+Route::get('/feedback', [FeedbackController::class, 'index'])->middleware('verified')->name('feedback');
