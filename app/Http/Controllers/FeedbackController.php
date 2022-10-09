@@ -23,6 +23,6 @@ class FeedbackController extends Controller
         Mail::to($user->email)->send(new FeedbackAcceptMail($feedback));
         Mail::to('sunasunayaka1218@gmail.com')->send(new FeedbackMail($feedback));
 
-        return redirect()->route('home');
+        return redirect()->route('home')->with('success_sent_feedback', '正常にフィードバックを受け付けました。');
     }
 }

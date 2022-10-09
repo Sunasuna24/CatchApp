@@ -3,6 +3,11 @@
 @section('title', 'CatchApp')
 
 @section('content')
+
+@if (session('success_sent_feedback'))
+{{ session('success_sent_feedback') }}
+@endif
+
 <p>これはHOMEページです</p>
 
 @if (0 < $release_notes->count())
