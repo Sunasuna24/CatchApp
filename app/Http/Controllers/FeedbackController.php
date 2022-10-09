@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FeedbackRequest;
 use App\Mail\FeedbackAcceptMail;
 use App\Mail\FeedbackMail;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
@@ -15,7 +15,7 @@ class FeedbackController extends Controller
         return view('feedback');
     }
 
-    public function send(Request $request)
+    public function send(FeedbackRequest $request)
     {
         $feedback = $request->body;
         $user = Auth::user();
