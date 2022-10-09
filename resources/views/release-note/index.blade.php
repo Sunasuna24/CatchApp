@@ -4,7 +4,9 @@
 
 @section('content')
     <h1>リリースノート</h1>
+    @if (\Auth::user()->email === "sunasunayaka1218@gmail.com")
     <a href="{{ route('release-note.create') }}">新しいリリースノートを作成する</a>
+    @endif
     @if (0 < $release_notes->count())
     <table>
         @foreach ($release_notes as $note)
