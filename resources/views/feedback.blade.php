@@ -6,6 +6,9 @@
 <h1>開発者にフィードバックを送る</h1>
 <form action="{{ route('feedback') }}" method="post">
     @csrf
+    @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+    @endforeach
     <div>
         <input type="text" name="title" value="{{ old('title') }}" placeholder="画像が表示されない">
     </div>
