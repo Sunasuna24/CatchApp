@@ -67,4 +67,4 @@ Route::delete('/release-notes/{release_note}', [ReleaseNoteController::class, 'd
  * フィードバック周り
  */
 Route::get('/feedback', [FeedbackController::class, 'index'])->middleware('verified')->name('feedback');
-Route::post('/feedback', [FeedbackController::class, 'send'])->middleware('verified')->name('feedback');
+Route::post('/feedback', [FeedbackController::class, 'send'])->middleware('verified');
