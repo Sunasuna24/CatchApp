@@ -24,7 +24,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // Fix for SwiftMailer Service; $_SERVER["SERVER_NAME"] = "gmail.com";
+        // Fix for SwiftMailer Service;
+        $_SERVER["SERVER_NAME"] = "gmail.com";
 
         if($this->app->environment('production')) {
             URL::forceScheme('https');
