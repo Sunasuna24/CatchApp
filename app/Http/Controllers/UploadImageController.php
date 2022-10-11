@@ -13,6 +13,6 @@ class UploadImageController extends Controller
 
     public function post(Request $request)
     {
-        dd($request->file('image'));
+        $request->file('image')->store('posts');
     }
 }
