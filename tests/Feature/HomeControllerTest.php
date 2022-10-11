@@ -12,7 +12,7 @@ class HomeControllerTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function access_to_top_page()
+    function access_to_top_page()
     {
         User::factory()->create();
         $user = User::first();
