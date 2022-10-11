@@ -10,4 +10,9 @@ class UploadImageController extends Controller
     {
         return view('post');
     }
+
+    public function post(Request $request)
+    {
+        dd($request->file('image'));
+    }
 }
