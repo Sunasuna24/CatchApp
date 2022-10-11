@@ -13,6 +13,9 @@ class UploadImageController extends Controller
 
     public function post(Request $request)
     {
-        $request->file('image')->store('posts');
+        // dd($request->file('image'));
+        $path = $request->file('image')->store('posts');
+
+        return $path;
     }
 }
