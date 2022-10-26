@@ -5,7 +5,7 @@ namespace Tests\Feature;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Http\UploadedFile;
+use Illuminate\Http\Testing\File;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
@@ -27,16 +27,18 @@ class UploadImageTest extends TestCase
     /** @test */
     function uploading_images()
     {
+        Storage::fake('public');
         User::factory()->create();
         $user = User::first();
 
-        Storage::fake('local');
+        $file = File::create('story.jpeg', 100);
+        $this->actingAs($user)->post(route('post'), ['path' => 'sample', 'story' => $file]);
 
-        $file = UploadedFile::fake()->image('story.jpg');
-        $this->actingAs($user)->post(route('post'), [
-            'local' => $file
-        ]);
+        $story = Story::first();
+        $this->assertNotNull($story->path);
+        $this->assertEquals('sample', $story->name);
 
-        Storage::disk('local')->assertExists($file->hashName());
+        Storage::disk('public')->assertExists($story->path);
+        $this->assertFileEquals($story, Storage::disk('public')->path($story->path));
     }
 }
