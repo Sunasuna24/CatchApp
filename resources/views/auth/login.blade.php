@@ -12,6 +12,9 @@
         @foreach ($errors->all() as $error)
         <li>{{ $error }}</li>
         @endforeach
+        @if (session('failed_login'))
+        <p>{{ session('failed_login') }}</p>
+        @endif
         <div>
             <label for="email">メールアドレス</label>
             <input type="email" name="email" id="email" value="{{ old('email') }}">
