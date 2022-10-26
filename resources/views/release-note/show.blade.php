@@ -5,7 +5,7 @@
 @section('content')
 <div>
     <h1>{{ $release_note->title }}</h1>
-    <p>{{ $release_note->detail }}</p>
+    <p>{!! nl2br(e($release_note->detail)) !!}</p>
 </div>
 @if (\Auth::user()->email === "sunasunayaka1218@gmail.com")
 <div>
