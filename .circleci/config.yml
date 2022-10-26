@@ -47,6 +47,7 @@ jobs:
             ssh -o StrictHostKeyChecking=no -t suna-aws@${FIRST_EC2} "cd catchApp && \
               git pull origin master && \
               composer install -n --no-dev --prefer-dist && \
+              npm install && \
               npm ci && \
               npm run prod && \
               php artisan migrate --force && \
@@ -57,6 +58,7 @@ jobs:
             ssh -o StrictHostKeyChecking=no -t suna-aws@${SECOND_EC2} "cd catchApp && \
               git pull origin master && \
               composer install -n --no-dev --prefer-dist && \
+              npm install && \
               npm ci && \
               npm run prod && \
               php artisan migrate --force && \
