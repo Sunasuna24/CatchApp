@@ -24,7 +24,7 @@ class LoginController extends Controller
             return redirect()->route('home');
         }
 
-        return redirect()->route('login');
+        return redirect()->route('login')->with('failed_login', 'メールアドレスまたはパスワードが正しくありません。');
     }
 
     public function logout(Request $request)
