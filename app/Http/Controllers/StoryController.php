@@ -34,7 +34,8 @@ class StoryController extends Controller
      */
     public function store(Request $request)
     {
-        $path = $request->file('story')->store('stories', 'public'); 
+        $path = $request->file('story')->store('stories', 'public');
+        return redirect()->route('home');
     }
 
     /**
