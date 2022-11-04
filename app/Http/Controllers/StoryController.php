@@ -34,7 +34,12 @@ class StoryController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'photo' => ['required', 'mimes:jpg,png,jpeg', 'max:2048']
+        ]);
+
         $path = $request->file('photo')->store('stories', 'public');
+
         return redirect()->route('home');
     }
 

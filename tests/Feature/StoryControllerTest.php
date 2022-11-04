@@ -39,12 +39,12 @@ class StoryControllerTest extends TestCase
 
         $this->actingAs($user)->from(route('story'))->post(route('story'), [])->assertRedirect(route('story'));
         $this->actingAs($user)->post(route('story'), ['photo' => ''])->assertInvalid(['photo' => '必ず指定']);
-        $this->actingAs($user)->post(route('story'), ['photo' => $jpg_image])->assertOk();
-        $this->actingAs($user)->post(route('story'), ['photo' => $png_image])->assertOk();
-        $this->actingAs($user)->post(route('story'), ['photo' => $jpeg_image])->assertOk();
-        $this->actingAs($user)->post(route('story'), ['photo' => $pdf_image])->assertInvalid(['photo' => '拡張子がアカンで']);
-        $this->actingAs($user)->post(route('story'), ['photo' => $just_size_image])->assertOk();
-        $this->actingAs($user)->post(route('story'), ['photo' => $too_big_image])->assertInvalid(['photo' => '拡張子がアカンで']);
+        $this->actingAs($user)->post(route('story'), ['photo' => $jpg_image])->assertRedirect(route('home'));
+        $this->actingAs($user)->post(route('story'), ['photo' => $png_image])->assertRedirect(route('home'));
+        $this->actingAs($user)->post(route('story'), ['photo' => $jpeg_image])->assertRedirect(route('home'));
+        $this->actingAs($user)->post(route('story'), ['photo' => $pdf_image])->assertInvalid(['photo' => 'タイプのファイルを指定']);
+        $this->actingAs($user)->post(route('story'), ['photo' => $just_size_image])->assertRedirect(route('home'));
+        $this->actingAs($user)->post(route('story'), ['photo' => $too_big_image])->assertInvalid(['photo' => 'kB以下のファイルを指定']);
     }
 
     /** @test */
