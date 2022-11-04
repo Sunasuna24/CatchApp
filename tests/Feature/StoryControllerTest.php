@@ -59,6 +59,22 @@ class StoryControllerTest extends TestCase
         $file = UploadedFile::fake()->image('sample_story.jpg');
 
         $this->actingAs($user)->post(route('story'), ['photo' => $file]);
-        Storage::disk('public')->assertExists('stories/' . $file->hashName()); 
+        Storage::disk('public')->assertExists("stories/{$file->hashName()}"); 
+    }
+
+    /** @test */
+    function store_user_and_path_info_to_stories_table()
+    {
+        User::factory()->create();
+        $user = User::first();
+
+        Storage::fake('public');
+        $file = UploadedFile::fake()->image('sample_story.jpg');
+
+        $this->actingAs($user)->post(route('story'), ['photo' => $file]);
+        $this->assertDatabaseHas('stories', [
+            'user_id' => $user->id,
+            'path' => "stories/{$file->hashName()}"
+        ]);
     }
 }
