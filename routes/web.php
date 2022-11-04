@@ -31,6 +31,7 @@ Route::get('/home', [HomeController::class, 'index'])->middleware(['auth', 'veri
  * ストーリー周り
  */
 Route::get('/story', [StoryController::class, 'create'])->middleware(['auth', 'verified'])->name('story');
+Route::post('/story', [StoryController::class, 'store'])->middleware(['auth', 'verified']);
 
 
 /**

@@ -31,10 +31,10 @@ class StoryControllerTest extends TestCase
 
         $this->post(route('story'), [])->assertRedirect(route('login'));
 
-        Storage::fake('stories');
+        Storage::fake('public');
         $file = UploadedFile::fake()->image('sample_story.jpg');
 
         $this->actingAs($user)->post(route('story'), ['story' => $file]);
-        Storage::disk('stories')->assertExists($file->hashName());
+        Storage::disk('public')->assertExists('stories/' . $file->hashName()); 
     }
 }
