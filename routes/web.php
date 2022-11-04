@@ -27,7 +27,8 @@ Route::get('/', function () {
 
 Route::get('/home', [HomeController::class, 'index'])->middleware(['auth', 'verified'])->name('home');
 
-Route::get('/post', [UploadImageController::class, 'index'])->middleware(['auth', 'verified'])->name('post');
+Route::get('/post', [UploadImageController::class, 'create'])->middleware(['auth', 'verified'])->name('post');
+Route::post('/post', [UploadImageController::class, 'store'])->middleware(['auth', 'verified']);
 
 
 /**

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Story;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -32,6 +33,8 @@ class UploadImageTest extends TestCase
         $user = User::first();
 
         $file = File::create('story.jpeg', 100);
+        $this->post(route('post'), ['path' => 'sample', 'story' => $file])->assertRedirect(route('login'));
+
         $this->actingAs($user)->post(route('post'), ['path' => 'sample', 'story' => $file]);
 
         $story = Story::first();
