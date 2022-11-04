@@ -7,7 +7,7 @@
 <form action="{{ route('story') }}" method="post" enctype="multipart/form-data">
     @csrf
     <div>
-        <input type="file" name="story">
+        <input type="file" name="photo">
     </div>
     <button type="submit">ストーリーを投稿する</button>
 </form>
