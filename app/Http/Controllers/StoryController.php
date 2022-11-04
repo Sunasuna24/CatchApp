@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreStoryRequest;
-use App\Http\Requests\UpdateStoryRequest;
+use Illuminate\Http\Request;
 use App\Models\Story;
 
 class StoryController extends Controller
@@ -31,10 +30,10 @@ class StoryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreStoryRequest  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreStoryRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -64,11 +63,11 @@ class StoryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateStoryRequest  $request
+     * @param  \Illuminate\Http\Request $request
      * @param  \App\Models\Story  $story
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateStoryRequest $request, Story $story)
+    public function update(Request $request, Story $story)
     {
         //
     }
