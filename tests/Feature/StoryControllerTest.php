@@ -29,9 +29,22 @@ class StoryControllerTest extends TestCase
         User::factory()->create();
         $user = User::first();
 
-        $this->actingAs($user)->from(route('story'))->post(route('story'), [])->assertRedirect(route('story'));
+        Storage::fake('public');
+        $jpg_image = UploadedFile::fake()->image('sample_story.jpg');
+        $png_image = UploadedFile::fake()->image('sample_story.png');
+        $jpeg_image = UploadedFile::fake()->image('sample_story.jpeg');
+        $pdf_image = UploadedFile::fake()->image('sample_story.pdf');
+        $just_size_image = UploadedFile::fake()->image('just_size_image.jpg')->size(2048);
+        $too_big_image = UploadedFile::fake()->image('too_big_image.jpg')->size(2049);
 
+        $this->actingAs($user)->from(route('story'))->post(route('story'), [])->assertRedirect(route('story'));
         $this->actingAs($user)->post(route('story'), ['photo' => ''])->assertInvalid(['photo' => '必ず指定']);
+        $this->actingAs($user)->post(route('story'), ['photo' => $jpg_image])->assertOk();
+        $this->actingAs($user)->post(route('story'), ['photo' => $png_image])->assertOk();
+        $this->actingAs($user)->post(route('story'), ['photo' => $jpeg_image])->assertOk();
+        $this->actingAs($user)->post(route('story'), ['photo' => $pdf_image])->assertInvalid(['photo' => '拡張子がアカンで']);
+        $this->actingAs($user)->post(route('story'), ['photo' => $just_size_image])->assertOk();
+        $this->actingAs($user)->post(route('story'), ['photo' => $too_big_image])->assertInvalid(['photo' => '拡張子がアカンで']);
     }
 
     /** @test */
