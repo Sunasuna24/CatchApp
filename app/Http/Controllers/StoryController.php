@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoryRequest;
+use App\Models\Story;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StoryController extends Controller
 {
@@ -36,6 +38,11 @@ class StoryController extends Controller
     public function store(StoryRequest $request)
     {
         $path = $request->file('photo')->store('stories', 'public');
+
+        Story::create([
+            'user_id' => Auth::id(),
+            'path' => $path
+        ]);
 
         return redirect()->route('home');
     }
