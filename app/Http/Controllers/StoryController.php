@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoryRequest;
 use Illuminate\Http\Request;
 
 class StoryController extends Controller
@@ -29,15 +30,11 @@ class StoryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoryRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoryRequest $request)
     {
-        $request->validate([
-            'photo' => ['required', 'mimes:jpg,png,jpeg', 'max:2048']
-        ]);
-
         $path = $request->file('photo')->store('stories', 'public');
 
         return redirect()->route('home');
