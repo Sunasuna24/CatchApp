@@ -52,6 +52,7 @@ jobs:
               npm ci && \
               npm run prod && \
               php artisan migrate --force && \
+              php artisan storage:link && \
               php artisan config:cache"
       - run:
           name: second_deploy
@@ -64,6 +65,7 @@ jobs:
               npm ci && \
               npm run prod && \
               php artisan migrate --force && \
+              php artisan storage:link && \
               php artisan config:cache"
 
 workflows:
