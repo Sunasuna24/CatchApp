@@ -26,6 +26,9 @@ Route::get('/', function () {
 
 Route::get('/home', [HomeController::class, 'index'])->middleware(['auth', 'verified'])->name('home');
 
+Route::get('/story', function () {
+    return view('story.post');
+})->middleware(['auth', 'verified'])->name('story');
 
 /**
  * 認証周り
