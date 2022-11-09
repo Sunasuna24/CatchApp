@@ -24,8 +24,9 @@ class StoryControllerTest extends TestCase
     }
 
     /** @test */
-    function validate_story_images()
+    function validate_posting_stories()
     {
+
         User::factory()->create();
         $user = User::first();
 
@@ -37,14 +38,34 @@ class StoryControllerTest extends TestCase
         $just_size_image = UploadedFile::fake()->image('just_size_image.jpg')->size(2048);
         $too_big_image = UploadedFile::fake()->image('too_big_image.jpg')->size(2049);
 
+        $tokyo_tower_lat = "35.658584";
+        $tokyo_tower_lng = "139.7454316";
+        $too_small_lat = "-90.01";
+        $too_small_lng = "-180.01";
+        $too_big_lat = "90.01";
+        $too_big_lng = "100.01";
+
+        // nullableの検証
         $this->actingAs($user)->from(route('story'))->post(route('story'), [])->assertRedirect(route('story'));
         $this->actingAs($user)->post(route('story'), ['photo' => ''])->assertInvalid(['photo' => '必ず指定']);
-        $this->actingAs($user)->post(route('story'), ['photo' => $jpg_image])->assertRedirect(route('home'));
-        $this->actingAs($user)->post(route('story'), ['photo' => $png_image])->assertRedirect(route('home'));
-        $this->actingAs($user)->post(route('story'), ['photo' => $jpeg_image])->assertRedirect(route('home'));
-        $this->actingAs($user)->post(route('story'), ['photo' => $pdf_image])->assertInvalid(['photo' => 'タイプのファイルを指定']);
-        $this->actingAs($user)->post(route('story'), ['photo' => $just_size_image])->assertRedirect(route('home'));
-        $this->actingAs($user)->post(route('story'), ['photo' => $too_big_image])->assertInvalid(['photo' => 'kB以下のファイルを指定']);
+        $this->actingAs($user)->post(route('story'), ['lat' => ''])->assertInvalid(['lat' => '必ず指定']);
+        $this->actingAs($user)->post(route('story'), ['lng' => ''])->assertInvalid(['lng' => '必ず指定']);
+
+        // 画像の拡張子の検証
+        $this->actingAs($user)->post(route('story'), ['photo' => $jpg_image, 'lat' => $tokyo_tower_lat, 'lng' => $tokyo_tower_lng])->assertRedirect(route('home'));
+        $this->actingAs($user)->post(route('story'), ['photo' => $png_image, 'lat' => $tokyo_tower_lat, 'lng' => $tokyo_tower_lng])->assertRedirect(route('home'));
+        $this->actingAs($user)->post(route('story'), ['photo' => $jpeg_image, 'lat' => $tokyo_tower_lat, 'lng' => $tokyo_tower_lng])->assertRedirect(route('home'));
+        $this->actingAs($user)->post(route('story'), ['photo' => $pdf_image, 'lat' => $tokyo_tower_lat, 'lng' => $tokyo_tower_lng])->assertInvalid(['photo' => 'タイプのファイルを指定']);
+
+        // 画像の大きさの検証
+        $this->actingAs($user)->post(route('story'), ['photo' => $just_size_image, 'lat' => $tokyo_tower_lat, 'lng' => $tokyo_tower_lng])->assertRedirect(route('home'));
+        $this->actingAs($user)->post(route('story'), ['photo' => $too_big_image, 'lat' => $tokyo_tower_lat, 'lng' => $tokyo_tower_lng])->assertInvalid(['photo' => 'kB以下のファイルを指定']);
+
+        // 緯度軽度の範囲の検証
+        $this->actingAs($user)->post(route('story'), ['lat' => $too_small_lat])->assertInvalid(['lat' => '小さい']);
+        $this->actingAs($user)->post(route('story'), ['lat' => $too_big_lat])->assertInvalid(['lat' => '大きい']);
+        $this->actingAs($user)->post(route('story'), ['lng' => $too_small_lng])->assertInvalid(['lng' => '小さい']);
+        $this->actingAs($user)->post(route('story'), ['lng' => $too_big_lng])->assertInvalid(['lng' => '大きい']);
     }
 
     /** @test */
