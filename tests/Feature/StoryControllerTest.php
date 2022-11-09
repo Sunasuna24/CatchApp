@@ -43,7 +43,7 @@ class StoryControllerTest extends TestCase
         $too_small_lat = "-90.01";
         $too_small_lng = "-180.01";
         $too_big_lat = "90.01";
-        $too_big_lng = "100.01";
+        $too_big_lng = "180.01";
 
         // nullableの検証
         $this->actingAs($user)->from(route('story'))->post(route('story'), [])->assertRedirect(route('story'));
@@ -62,10 +62,10 @@ class StoryControllerTest extends TestCase
         $this->actingAs($user)->post(route('story'), ['photo' => $too_big_image, 'lat' => $tokyo_tower_lat, 'lng' => $tokyo_tower_lng])->assertInvalid(['photo' => 'kB以下のファイルを指定']);
 
         // 緯度軽度の範囲の検証
-        $this->actingAs($user)->post(route('story'), ['lat' => $too_small_lat, 'lng' => $too_big_lng])->assertInvalid(['lat' => '小さい']);
-        $this->actingAs($user)->post(route('story'), ['lat' => $too_big_lat, 'lng' => $too_big_lng])->assertInvalid(['lat' => '大きい']);
-        $this->actingAs($user)->post(route('story'), ['lat' => $too_big_lat, 'lng' => $too_small_lng])->assertInvalid(['lng' => '小さい']);
-        $this->actingAs($user)->post(route('story'), ['lat' => $too_big_lat, 'lng' => $too_big_lng])->assertInvalid(['lng' => '大きい']);
+        $this->actingAs($user)->post(route('story'), ['lat' => $too_small_lat, 'lng' => $tokyo_tower_lng])->assertInvalid(['lat' => '-90以上の数字を指定']);
+        $this->actingAs($user)->post(route('story'), ['lat' => $too_big_lat, 'lng' => $tokyo_tower_lng])->assertInvalid(['lat' => '90以下の数字を指定']);
+        $this->actingAs($user)->post(route('story'), ['lat' => $tokyo_tower_lat, 'lng' => $too_small_lng])->assertInvalid(['lng' => '-180以上の数字を指定']);
+        $this->actingAs($user)->post(route('story'), ['lat' => $tokyo_tower_lat, 'lng' => $too_big_lng])->assertInvalid(['lng' => '180以下の数字を指定']);
     }
 
     /** @test */
