@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $release_note->title . ' | CatchApp')
+@section('title', $release_note->title . ' | ' . config('app.name'))
 
 @section('content')
 <div>

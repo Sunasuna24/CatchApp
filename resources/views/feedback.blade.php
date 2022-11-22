@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'フィードバックを送る | CatchApp')
+@section('title', 'フィードバックを送る | ' . config('app.name'))
 
 @section('content')
 <h1>開発者にフィードバックを送る</h1>

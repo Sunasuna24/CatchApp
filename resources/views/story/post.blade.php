@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'ストーリーを投稿する | CatchApp')
+@section('title', 'ストーリーを投稿する | ' . config('app.name'))
 
 @section('content')
 <h1>ストーリーを投稿する</h1>
