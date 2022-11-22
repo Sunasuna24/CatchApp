@@ -24,7 +24,9 @@ class StoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'photo' => ['required', 'mimes:jpg,png,jpeg', 'max:2048']
+            'photo' => ['required', 'mimes:jpg,png,jpeg', 'max:2048'],
+            'lat' => ['required', 'numeric', 'min:-90', 'max:90'],
+            'lng' => ['required', 'numeric', 'min:-180', 'max:180']
         ];
     }
 }

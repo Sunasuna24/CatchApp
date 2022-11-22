@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoryRequest;
 use App\Models\Story;
+use Grimzy\LaravelMysqlSpatial\Types\Point;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -41,7 +42,8 @@ class StoryController extends Controller
 
         Story::create([
             'user_id' => Auth::id(),
-            'path' => $path
+            'path' => $path,
+            'point' => new Point($request->lat, $request->lng)
         ]);
 
         return redirect()->route('home');

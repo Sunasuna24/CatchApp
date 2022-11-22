@@ -11,6 +11,7 @@ class Story extends Model
 
     protected $fillable = [
         'user_id',
-        'path'
+        'path',
+        'point'
     ];
 }
