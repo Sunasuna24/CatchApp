@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'リリースノートを編集 | CatchApp')
+@section('title', 'リリースノートを編集 | ' . config('app.name'))
 
 @section('content')
 <form action="{{ route('release-note.edit', $release_note->id) }}" method="post">

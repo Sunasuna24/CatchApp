@@ -1,5 +1,5 @@
 <header>
-    <h1 class="text-red-600"><a href="{{ \Auth::check() ? route('home') : route('top') }}">CatchApp</a></h1>
+    <h1 class="text-red-600"><a href="{{ \Auth::check() ? route('home') : route('top') }}">{{ config('app.name') }}</a></h1>
     <ul>
         @auth
         <li><a href="{{ route('feedback') }}">フィードバックを送る</a></li>

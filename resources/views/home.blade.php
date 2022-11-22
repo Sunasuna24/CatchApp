@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'CatchApp')
+@section('title', config('app.name'))
 
 @section('content')
 

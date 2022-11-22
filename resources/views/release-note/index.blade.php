@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'リリースノート | CatchApp')
+@section('title', 'リリースノート | ' . config('app.name'))
 
 @section('content')
     <h1>リリースノート</h1>

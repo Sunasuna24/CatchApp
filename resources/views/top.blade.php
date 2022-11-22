@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'CatchAppへようこそ')
+@section('title', config('app.name') . 'へようこそ')
 
 @section('content')
-<p>CatchAppへようこそ</p>
+<p>{{ config('app.name') }}へようこそ</p>
 @endsection
