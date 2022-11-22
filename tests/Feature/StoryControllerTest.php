@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\User;
+use Grimzy\LaravelMysqlSpatial\Types\Point;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\UploadedFile;
@@ -77,25 +78,21 @@ class StoryControllerTest extends TestCase
         $this->post(route('story'), [])->assertRedirect(route('login'));
 
         Storage::fake('public');
-        $file = UploadedFile::fake()->image('sample_story.jpg');
+        $photo = UploadedFile::fake()->image('sample_story.jpg');
 
-        $this->actingAs($user)->post(route('story'), ['photo' => $file]);
-        Storage::disk('public')->assertExists("stories/{$file->hashName()}"); 
-    }
+        $tocho_lat = 35.6684415;    // 都庁の緯度
+        $tocho_lng = 139.6007843;   // 都庁の軽度
 
-    /** @test */
-    function store_user_and_path_info_to_stories_table()
-    {
-        User::factory()->create();
-        $user = User::first();
-
-        Storage::fake('public');
-        $file = UploadedFile::fake()->image('sample_story.jpg');
-
-        $this->actingAs($user)->post(route('story'), ['photo' => $file]);
+        $this->actingAs($user)->post(route('story'), [
+            'photo' => $photo,
+            'lat' => $tocho_lat,
+            'lng' => $tocho_lng
+        ]);
+        Storage::disk('public')->assertExists("stories/{$photo->hashName()}");
         $this->assertDatabaseHas('stories', [
             'user_id' => $user->id,
-            'path' => "stories/{$file->hashName()}"
+            'path' => "stories/{$photo->hashName()}",
+            'point' => new Point($tocho_lat, $tocho_lng)
         ]);
     }
 }
