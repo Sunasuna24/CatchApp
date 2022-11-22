@@ -17,8 +17,10 @@ class CreateStoriesTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->string('path');
-            $table->point('point');
+            $table->geometry('location');
             $table->timestamps();
+
+            $table->spatialIndex('location');
         });
     }
 

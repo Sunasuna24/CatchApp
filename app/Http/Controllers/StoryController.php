@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoryRequest;
 use App\Models\Story;
-use Grimzy\LaravelMysqlSpatial\Types\Point;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class StoryController extends Controller
 {
@@ -40,10 +40,12 @@ class StoryController extends Controller
     {
         $path = $request->file('photo')->store('stories', 'public');
 
+        $point = 'POINT('. $request->lat .' '. $request->lng .')';
+
         Story::create([
             'user_id' => Auth::id(),
             'path' => $path,
-            'point' => new Point($request->lat, $request->lng)
+            'location' => DB::raw('ST_GeomFromText("'. $point .'")')
         ]);
 
         return redirect()->route('home');
