@@ -45,7 +45,7 @@ class StoryController extends Controller
         Story::create([
             'user_id' => Auth::id(),
             'path' => $path,
-            'location' => DB::raw('ST_GeomFromText("'. $point .'")')
+            'location' => DB::raw('GeomFromText("'. $point .'")')
         ]);
 
         return redirect()->route('home');

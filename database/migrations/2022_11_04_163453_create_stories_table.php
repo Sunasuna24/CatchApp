@@ -20,7 +20,7 @@ class CreateStoriesTable extends Migration
             $table->geometry('location');
             $table->timestamps();
 
-            $table->spatialIndex('location');
+            // $table->spatialIndex('location');
         });
     }
 
