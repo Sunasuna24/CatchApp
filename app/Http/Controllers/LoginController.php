@@ -28,5 +28,7 @@ class LoginController extends Controller
         if (Auth::attempt($createntials)) {
             return redirect()->route('home');
         }
+
+        return back()->withInput()->with('failed_login', 'ログインに失敗しました。');
     }
 }

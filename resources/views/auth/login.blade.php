@@ -14,6 +14,13 @@
             </ul>
         </div>
         @endif
+        @if (session('failed_login'))
+        <div>
+            <ul>
+                <li>{{ session('failed_login') }}</li>
+            </ul>
+        </div>
+        @endif
         <div>
             <label for="email">メールアドレス</label>
             <input type="text" name="email" id="email" value="{{ old('email') }}">
