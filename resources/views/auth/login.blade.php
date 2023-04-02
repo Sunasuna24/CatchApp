@@ -5,9 +5,18 @@
     <p>ログインする</p>
     <form action="{{ route('login') }}" method="POST">
         @csrf
+        @if ($errors->any())
+        <div>
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
         <div>
             <label for="email">メールアドレス</label>
-            <input type="email" name="email" id="email">
+            <input type="text" name="email" id="email" value="{{ old('email') }}">
         </div>
         <div>
             <label for="password">パスワード</label>

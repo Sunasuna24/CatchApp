@@ -20,7 +20,12 @@ class LoginController extends Controller
      */
     public function login(Request $request)
     {
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+        $createntials = $request->validate([
+            'email' => ['required'],
+            'password' => ['required']
+        ]);
+
+        if (Auth::attempt($createntials)) {
             return redirect()->route('home');
         }
     }
