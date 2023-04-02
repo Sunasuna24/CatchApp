@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'ログインする')
+
 @section('content')
 <div>
     <p>ログインする</p>

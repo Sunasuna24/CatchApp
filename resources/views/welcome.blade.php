@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('welcome', 'Catch Appへようこそ')
+
 @section('content')
 <div>
     <h1>{{ config('app.name') }}</h1>
