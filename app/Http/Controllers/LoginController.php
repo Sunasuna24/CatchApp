@@ -31,4 +31,16 @@ class LoginController extends Controller
 
         return back()->withInput()->with('failed_login', 'ログインに失敗しました。');
     }
+
+    /**
+     * ログアウトする。
+     */
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('welcome');
+    }
 }
