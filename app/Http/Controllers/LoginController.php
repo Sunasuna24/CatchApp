@@ -26,6 +26,7 @@ class LoginController extends Controller
         ]);
 
         if (Auth::attempt($createntials)) {
+            $request->session()->regenerate();
             return redirect()->route('home');
         }
 
