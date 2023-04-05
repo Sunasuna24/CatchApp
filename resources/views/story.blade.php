@@ -5,7 +5,7 @@
 @section('content')
 <div>
     <p>投稿する</p>
-    <form action="{{ route('story.upload') }}" method="POST">
+    <form action="{{ route('story.upload') }}" method="POST" enctype="multipart/form-data">
         @csrf
         @if ($errors->any())
         <div>

@@ -13,4 +13,15 @@ class StoryController extends Controller
     {
         return view('story');
     }
+
+    /**
+     * 送信された画像を保存する。
+     */
+    public function store(Request $request)
+    {
+        $dir = 'stories';
+        $request->file('image')->store('public/' . $dir);
+
+        return redirect()->route('story.upload');
+    }
 }

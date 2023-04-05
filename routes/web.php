@@ -33,4 +33,5 @@ Route::middleware('auth')->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
     Route::get('/story', [StoryController::class, 'create'])->name('story.upload');
+    Route::post('/story', [StoryController::class, 'store']);
 });
