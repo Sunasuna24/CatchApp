@@ -26,9 +26,22 @@ class LoginController extends Controller
         ]);
 
         if (Auth::attempt($createntials)) {
+            $request->session()->regenerate();
             return redirect()->route('home');
         }
 
         return back()->withInput()->with('failed_login', 'ログインに失敗しました。');
+    }
+
+    /**
+     * ログアウトする。
+     */
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('welcome');
     }
 }
