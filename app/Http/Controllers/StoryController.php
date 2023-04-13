@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Image;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StoryController extends Controller
 {
@@ -20,7 +22,12 @@ class StoryController extends Controller
     public function store(Request $request)
     {
         $dir = 'stories';
-        $request->file('image')->store('public/' . $dir);
+        $path = $request->file('image')->store('public/' . $dir);
+
+        Image::create([
+            'user_id' => Auth::id(),
+            'path' => $path
+        ]);
 
         return redirect()->route('story.upload');
     }
