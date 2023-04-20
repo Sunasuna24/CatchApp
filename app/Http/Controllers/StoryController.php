@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Image;
+use InterventionImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,13 +22,16 @@ class StoryController extends Controller
      */
     public function store(Request $request)
     {
-        $dir = 'stories';
-        $path = $request->file('image')->store('public/' . $dir);
+        // $dir = 'stories';
+        // $path = $request->file('image')->store('public/' . $dir);
 
-        Image::create([
-            'user_id' => Auth::id(),
-            'path' => $path
-        ]);
+        // Image::create([
+        //     'user_id' => Auth::id(),
+        //     'path' => $path
+        // ]);
+
+        $img = InterventionImage::make($request->file('image'));
+        dd($img->exif());
 
         return redirect()->route('story.upload');
     }
